@@ -199,7 +199,7 @@ int main(int argc, char *argv[])
         const char* m_chars = m_str.c_str();
         execl("./dataserver", m_chars, (char*)NULL);
     }
-    wait();
+    //wait();
 
     
 	FIFORequestChannel* chan = new FIFORequestChannel("control", FIFORequestChannel::CLIENT_SIDE);
