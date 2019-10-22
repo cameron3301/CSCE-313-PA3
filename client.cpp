@@ -164,13 +164,13 @@ int main(int argc, char *argv[])
     // validate data request
     if (!f) {
         if (nChars) { n = charsToInt(nChars); }                                    
-        else { n = 10; }  // change to 100
+        else { n = 100; }  // change to 100
 
         if (pChars) { p = charsToInt(pChars); }
-        else { p = 3; }   // change to 10
+        else { p = 10; }   // change to 10
 
         if (wChars) { w = charsToInt(wChars); }
-        else { w = 5; }  // change to 100
+        else { w = 100; }  // change to 100
 
         if (bChars) { b = charsToInt(bChars); }
         else { b = 20; }   // change to 20
@@ -179,7 +179,7 @@ int main(int argc, char *argv[])
     // validate file requests
     else {
         if (wChars) { w = charsToInt(wChars); }
-        else { w = 5; }  // change to 100
+        else { w = 100; }  // change to 100
 
         if (bChars) { b = charsToInt(bChars); }
         else { b = 20; }   // change to 20
@@ -199,7 +199,6 @@ int main(int argc, char *argv[])
         const char* m_chars = m_str.c_str();
         execl("./dataserver", m_chars, (char*)NULL);
     }
-    //wait();
 
     
 	FIFORequestChannel* chan = new FIFORequestChannel("control", FIFORequestChannel::CLIENT_SIDE);
