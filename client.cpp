@@ -164,25 +164,25 @@ int main(int argc, char *argv[])
     // validate data request
     if (!f) {
         if (nChars) { n = charsToInt(nChars); }                                    
-        else { n = 100; }  // change to 100
+        else { n = 100; }
 
         if (pChars) { p = charsToInt(pChars); }
-        else { p = 10; }   // change to 10
+        else { p = 10; }
 
         if (wChars) { w = charsToInt(wChars); }
-        else { w = 100; }  // change to 100
+        else { w = 100; }
 
         if (bChars) { b = charsToInt(bChars); }
-        else { b = 20; }   // change to 20
+        else { b = 20; } 
 
     }
     // validate file requests
     else {
         if (wChars) { w = charsToInt(wChars); }
-        else { w = 100; }  // change to 100
+        else { w = 100; }
 
         if (bChars) { b = charsToInt(bChars); }
-        else { b = 20; }   // change to 20
+        else { b = 20; }  
     }
 
 
@@ -194,7 +194,6 @@ int main(int argc, char *argv[])
     
     int pid = fork();
     if (pid == 0) {
-		// modify this to pass along m
         string m_str = to_string(m);
         const char* m_chars = m_str.c_str();
         execl("./dataserver", m_chars, (char*)NULL);
@@ -217,13 +216,15 @@ int main(int argc, char *argv[])
         vector<FIFORequestChannel*> channels;
         vector<Histogram*> histograms;
 
+        double hist_start_vals[15] = {-0.94, -2.205, -1.875, -1.505, -2.315, -1.06, -1.705, -1.31, -2.79, -0.795, -5.295, -1.08, -1.715, -1.92, -7.825};
+        double hist_end_vals[15] = {1.35, 1.11, 0.465, 0.32, 1.495, 0.595, 0.255, 0.44, 3.58, 1.44, 3.81, 0.435, 2.24, 1.235, 7.27};
+
         // create `p` histograms
         double num_bins = sqrt(((double) n));
         for (int i = 0; i < p; i++) {
-            Histogram* h = new Histogram(num_bins, -1, 1);  // Maybe: determine the smallest and largest value of histogram?
+            Histogram* h = new Histogram(num_bins, hist_start_vals[i], hist_end_vals[i]);
             histograms.push_back(h);
-            hc.add(h);  // maybe -> hc.add(histograms[i]);
-            // histograms.push_back(new histogram(num_bins, -1, 1));
+            hc.add(h); 
         }
 
         // create `p` patient threads
@@ -286,9 +287,6 @@ int main(int argc, char *argv[])
         int w = chan->cwrite(buff, size);
         __int64_t file_length = *(__int64_t*) chan->cread();
 
-        cout << file_length << endl;
-
-        // 
         vector<thread> w_threads;
         vector<FIFORequestChannel*> channels;
 
@@ -329,13 +327,6 @@ int main(int argc, char *argv[])
         for (int i = 0; i < w; i++) {
             w_threads[i].join();
         }
-
-
-        queue<vector<char>> q = request_buffer.getQueue();
-
-        cout << "size of BB: " << q.size() << endl;
-
-
     }
 
         
