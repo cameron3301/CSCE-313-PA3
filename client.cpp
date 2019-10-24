@@ -216,13 +216,14 @@ int main(int argc, char *argv[])
         vector<FIFORequestChannel*> channels;
         vector<Histogram*> histograms;
 
-        double hist_start_vals[15] = {-0.94, -2.205, -1.875, -1.505, -2.315, -1.06, -1.705, -1.31, -2.79, -0.795, -5.295, -1.08, -1.715, -1.92, -7.825};
-        double hist_end_vals[15] = {1.35, 1.11, 0.465, 0.32, 1.495, 0.595, 0.255, 0.44, 3.58, 1.44, 3.81, 0.435, 2.24, 1.235, 7.27};
+        //double hist_start_vals[15] = {-0.94, -2.205, -1.875, -1.505, -2.315, -1.06, -1.705, -1.31, -2.79, -0.795, -5.295, -1.08, -1.715, -1.92, -7.825};
+        //double hist_end_vals[15] = {1.35, 1.11, 0.465, 0.32, 1.495, 0.595, 0.255, 0.44, 3.58, 1.44, 3.81, 0.435, 2.24, 1.235, 7.27};
 
         // create `p` histograms
         double num_bins = sqrt(((double) n));
         for (int i = 0; i < p; i++) {
-            Histogram* h = new Histogram(num_bins, hist_start_vals[i], hist_end_vals[i]);
+            //Histogram* h = new Histogram(num_bins, hist_start_vals[i], hist_end_vals[i]);
+            Histogram* h = new Histogram(10, -2, 2);
             histograms.push_back(h);
             hc.add(h); 
         }
